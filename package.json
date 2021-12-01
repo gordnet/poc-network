@@ -1,22 +1,25 @@
 {
-  "name": "poc-network",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Anon-Inu/poc-network.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Anon-Inu/poc-network/issues"
-  },
-  "homepage": "https://github.com/Anon-Inu/poc-network#readme",
-  "devDependencies": {
-    "typescript": "^4.5.2"
-  }
+    "name": "poc-network",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "lint": "eslint ./src --ext .ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Anon-Inu/poc-network.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Anon-Inu/poc-network/issues"
+    },
+    "homepage": "https://github.com/Anon-Inu/poc-network#readme",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.5.0",
+        "@typescript-eslint/parser": "^5.5.0",
+        "eslint": "^8.3.0",
+        "typescript": "^4.5.2"
+    }
 }
