@@ -1,6 +1,7 @@
 import http from 'http'
 import levelup from 'levelup'
 import leveldown from 'leveldown'
+import fetch from 'node-fetch'
 import { program } from 'commander'
 import { getPeers } from './utils/peers'
 
@@ -23,6 +24,27 @@ const requestHandler = (request: http.IncomingMessage, response: http.ServerResp
 const bootstrap = async () => {
   const server = http.createServer(requestHandler)
   const peers = await getPeers(peerDb)
+
+  console.log(peers.toString())
+
+  const reqOptions = {
+    hostname: peers[1].split(':')[0],
+    port: peers[1].split(':')[1],
+  }
+  console.log({ reqOptions })
+  const req = http.request(reqOptions, async (res) => {
+    console.log(`statusCode: ${res.statusCode}`)
+
+    res.on('data', d => {
+      console.log('data', d.toString())
+    })
+  })
+
+  req.on('error', error => {
+    console.error(error)
+  })
+
+  req.end()
 
   console.log('Listening on port ' + PORT)
   return server.listen(PORT)
