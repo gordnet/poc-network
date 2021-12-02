@@ -1,7 +1,6 @@
 import http from 'http'
 import levelup from 'levelup'
 import leveldown from 'leveldown'
-import fetch from 'node-fetch'
 import { program } from 'commander'
 import { getPeers } from './utils/peers'
 
@@ -13,8 +12,8 @@ program.parse();
 
 const options = program.opts()
 const CWD = process.cwd()
-const PORT = options.port || 10309
-const peerDb = levelup(leveldown(`${CWD}/data/peers.${PORT}`))
+global.PORT = options.port as number || 10309
+const peerDb = levelup(leveldown(`${CWD}/data/peers.${global.PORT}`))
 
 const requestHandler = (request: http.IncomingMessage, response: http.ServerResponse) => {
   response.writeHead(200);

@@ -6,6 +6,11 @@ const getPeers = async (db: LevelUp) => {
   let currentPeers: string[] = []
 
   return new Promise((resolve, reject) => {
+    const keyStream = db.createKeyStream()
+
+  })
+
+  return new Promise((resolve, reject) => {
     db.createReadStream()
       .on('data', function (data) {
         console.log(data.key, '=', data.value)
