@@ -1,0 +1,36 @@
+{
+    "name": "poc-network",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon src/index.ts",
+        "lint": "eslint ./src --ext .ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Anon-Inu/poc-network.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Anon-Inu/poc-network/issues"
+    },
+    "homepage": "https://github.com/Anon-Inu/poc-network#readme",
+    "devDependencies": {
+        "@types/leveldown": "^4.0.3",
+        "@types/levelup": "^4.3.3",
+        "@types/node": "^16.11.11",
+        "@typescript-eslint/eslint-plugin": "^5.5.0",
+        "@typescript-eslint/parser": "^5.5.0",
+        "eslint": "^8.3.0",
+        "nodemon": "^2.0.15",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.5.2"
+    },
+    "dependencies": {
+        "commander": "^8.3.0",
+        "leveldown": "^6.1.0",
+        "levelup": "^5.1.1"
+    }
+}
