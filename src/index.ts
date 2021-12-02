@@ -61,7 +61,7 @@ const requestHandler = (request: http.IncomingMessage, response: http.ServerResp
       }
     }
 
-    const httpLibrary = protocol === 'https' ? https : http
+    const httpLibrary = requestOptions.port === 443 ? https : http
 
     console.log({ requestOptions })
 
