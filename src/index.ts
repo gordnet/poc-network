@@ -2,14 +2,14 @@
 
 import http from 'http'
 import https from 'https'
-import jayson from 'jayson'
+import jayson from 'jayson/promise'
 import { program } from 'commander'
-import getPeersCommand from './rpcCommands/getPeers'
+import { addPeerCommand, getPeersCommand, removePeerCommand } from './rpcCommands/peers'
 
 program
   .description('A node in the network')
   .option('-p, --port <port>', 'Port to listen to', '10309')
-  .option('-r, --rpcport <port>', 'Port to listen to for JSON RPC', '20309')
+  .option('-r, --rpcport <port>', 'Port to listen to for JSON RPC. If none is specified, then the RPC server will not run')
 
 program.parse();
 
@@ -107,6 +107,9 @@ const startService = async () => {
 const startJsonRpcService = async () => {
   const server = new jayson.Server({
     getPeers: getPeersCommand,
+    addPeer: addPeerCommand,
+    removePeer: removePeerCommand,
+
   });
 
   console.log('JSON RPC Server listening on port ' + RPCPORT)
@@ -114,4 +117,6 @@ const startJsonRpcService = async () => {
 }
 
 startService()
-startJsonRpcService()
+if (RPCPORT) {
+  startJsonRpcService()
+}
