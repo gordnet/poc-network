@@ -12,7 +12,6 @@ const options = program.opts()
 const PORT = options.port as number || 10309
 
 const requestHandler = (request: http.IncomingMessage, response: http.ServerResponse) => {
-  console.log('I GOT SOMETHING!!!!')
   if (request.headers['content-type'] !== 'application/json') {
     return response.writeHead(400).end('Invalid content-type')
   }
