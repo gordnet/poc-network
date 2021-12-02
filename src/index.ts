@@ -18,7 +18,6 @@ global.PORT = Number(options.port)
 const RPCPORT = options.rpcport as number
 
 const requestHandler = (request: http.IncomingMessage, response: http.ServerResponse) => {
-  console.log('I GOT SOMETHING!!!!')
   if (request.headers['content-type'] !== 'application/json') {
     return response.writeHead(400).end('Invalid content-type')
   }
