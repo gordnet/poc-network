@@ -1,29 +1,26 @@
-import levelup, { LevelUp } from 'levelup'
-import hardcodedPeers from '../constants/peers.json'
-
+import levelup, { LevelUp } from "levelup";
+import hardcodedPeers from "../constants/peers.json";
 
 const getPeers = async (db: LevelUp) => {
-  let currentPeers: string[] = []
+  let currentPeers: string[] = [];
 
   return new Promise((resolve, reject) => {
-    const keyStream = db.createKeyStream()
-
-  })
+    const keyStream = db.createKeyStream();
+  });
 
   return new Promise((resolve, reject) => {
     db.createReadStream()
-      .on('data', function (data) {
-        console.log(data.key, '=', data.value)
+      .on("data", function (data) {
+        console.log(data.key, "=", data.value);
       })
-      .on('error', reject)
-      .on('close', function () {
-        console.log('Stream closed')
+      .on("error", reject)
+      .on("close", function () {
+        console.log("Stream closed");
       })
-      .on('end', function () {
-        return resolve(currentPeers)
-      })
-
-  })
+      .on("end", function () {
+        return resolve(currentPeers);
+      });
+  });
 
   // let currentPeers: string[] = []
   // try {
@@ -37,8 +34,6 @@ const getPeers = async (db: LevelUp) => {
   // }
 
   // return currentPeers.toString().split(',')
-}
+};
 
-export {
-  getPeers
-}
+export { getPeers };
