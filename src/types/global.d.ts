@@ -1,5 +1,5 @@
 declare global {
-  var PORT: Number;
+  var PORT: number;
 }
 
-export { }
+export {};

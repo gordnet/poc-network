@@ -8,10 +8,14 @@ specifiers:
   '@typescript-eslint/parser': ^5.5.0
   commander: ^8.3.0
   eslint: ^8.3.0
+  eslint-config-prettier: ^8.3.0
+  eslint-plugin-only-warn: ^1.0.3
+  husky: ^7.0.0
   jayson: ^3.6.5
   leveldown: ^6.1.0
   levelup: ^5.1.1
   nodemon: ^2.0.15
+  prettier: 2.5.0
   ts-node: ^10.4.0
   typescript: ^4.5.2
 
@@ -28,7 +32,11 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.5.0_2a935f58a3cc0b0f42856ccf18d8367f
   '@typescript-eslint/parser': 5.5.0_eslint@8.3.0+typescript@4.5.2
   eslint: 8.3.0
+  eslint-config-prettier: 8.3.0_eslint@8.3.0
+  eslint-plugin-only-warn: 1.0.3
+  husky: 7.0.4
   nodemon: 2.0.15
+  prettier: 2.5.0
   ts-node: 10.4.0_68212d3c5f342a0c59715bbaaf1875e7
   typescript: 4.5.2
 
@@ -683,6 +691,20 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /eslint-config-prettier/8.3.0_eslint@8.3.0:
+    resolution: {integrity: sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.3.0
+    dev: true
+
+  /eslint-plugin-only-warn/1.0.3:
+    resolution: {integrity: sha512-XQOX/TfLoLw6h8ky51d29uUjXRTQHqBGXPylDEmy5fe/w7LIOnp8MA24b1OSMEn9BQoKow1q3g1kLe5/9uBTvw==}
+    engines: {node: '>=6'}
+    dev: true
+
   /eslint-scope/5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
     engines: {node: '>=8.0.0'}
@@ -983,6 +1005,12 @@ packages:
 
   /http-cache-semantics/4.1.0:
     resolution: {integrity: sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==}
+    dev: true
+
+  /husky/7.0.4:
+    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
+    engines: {node: '>=12'}
+    hasBin: true
     dev: true
 
   /ieee754/1.2.1:
@@ -1429,6 +1457,12 @@ packages:
   /prepend-http/2.0.0:
     resolution: {integrity: sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=}
     engines: {node: '>=4'}
+    dev: true
+
+  /prettier/2.5.0:
+    resolution: {integrity: sha512-FM/zAKgWTxj40rH03VxzIPdXmj39SwSjwG0heUcNFwI+EMZJnY93yAiKXM3dObIKAM5TA88werc8T/EwhB45eg==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
     dev: true
 
   /progress/2.0.3:

@@ -1,49 +1,48 @@
 /// <reference path="../types/global.d.ts" />
 
-import levelup from 'levelup'
-import leveldown from 'leveldown'
-import { Peer } from '../types/peer'
-
-
+import levelup from "levelup";
+import leveldown from "leveldown";
+import { Peer } from "../types/peer";
 
 const getPeersCommand = async () => {
-  const peerDb = levelup(leveldown(`${process.cwd()}/data/peers.${global.PORT}`))
-  let currentPeers: string[] = []
+  const peerDb = levelup(
+    leveldown(`${process.cwd()}/data/peers.${global.PORT}`)
+  );
+  const currentPeers: string[] = [];
 
   return new Promise((resolve, reject) => {
-    let peerKeys: string[] = []
-    peerDb.createKeyStream()
-      .on('data', function (data) {
-        peerKeys.push(data.toString())
+    const peerKeys: string[] = [];
+    peerDb
+      .createKeyStream()
+      .on("data", function (data) {
+        peerKeys.push(data.toString());
       })
-      .on('end', () => {
-        console.log({ peerKeys })
+      .on("end", () => {
+        console.log({ peerKeys });
         // console.log('end', currentPeers)
-        peerDb.close()
-        return resolve(currentPeers)
+        peerDb.close();
+        return resolve(currentPeers);
       })
-      .on('error', reject)
-
-  })
-
-}
+      .on("error", reject);
+  });
+};
 
 const addPeerCommand = async (args: string[]) => {
-  const peerDb = levelup(leveldown(`${process.cwd()}/data/peers.${global.PORT}`))
-  const nodeToAdd = args[0]
-  let newNode: Peer = {
-    addr: nodeToAdd
-  }
+  const peerDb = levelup(
+    leveldown(`${process.cwd()}/data/peers.${global.PORT}`)
+  );
+  const nodeToAdd = args[0];
+  const newNode: Peer = {
+    addr: nodeToAdd,
+  };
 
-  await peerDb.put(nodeToAdd, JSON.stringify(newNode))
-  console.log({ args })
+  await peerDb.put(nodeToAdd, JSON.stringify(newNode));
+  console.log({ args });
 
-  peerDb.close()
-  return
-}
+  peerDb.close();
+  return;
+};
 
-const removePeerCommand = async (args: string[]) => {
+const removePeerCommand = async (args: string[]) => {};
 
-}
-
-export { getPeersCommand, addPeerCommand, removePeerCommand }
+export { getPeersCommand, addPeerCommand, removePeerCommand };
