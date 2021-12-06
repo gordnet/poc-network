@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /// <reference path="types/global.d.ts" />
 
 import http from 'http'
@@ -17,20 +16,6 @@ program.parse();
 const options = program.opts()
 global.PORT = Number(options.port)
 const RPCPORT = options.rpcport as number
-=======
-import http from "http";
-import https from "https";
-import { program } from "commander";
-
-program
-  .description("A node in the network")
-  .option("-p, --port <port>", "Port to listen to");
-
-program.parse();
-
-const options = program.opts();
-const PORT = (options.port as number) || 10309;
->>>>>>> 1bd6223ab2a986d4c417fba32ab8443a88cfed97
 
 const requestHandler = (
   request: http.IncomingMessage,
@@ -111,12 +96,6 @@ const requestHandler = (
   });
 };
 
-<<<<<<< HEAD
-=======
-const bootstrap = async () => {
-  const server = http.createServer(requestHandler);
-  // const peers = await getPeers(peerDb)
->>>>>>> 1bd6223ab2a986d4c417fba32ab8443a88cfed97
 
 const startService = async () => {
   const server = http.createServer(requestHandler)
@@ -134,7 +113,6 @@ const startJsonRpcService = async () => {
 
   });
 
-<<<<<<< HEAD
   console.log('JSON RPC Server listening on port ' + RPCPORT)
   return server.http().listen(RPCPORT)
 }
@@ -143,10 +121,3 @@ startService()
 if (RPCPORT) {
   startJsonRpcService()
 }
-=======
-  console.log("Listening on port " + PORT);
-  return server.listen(PORT);
-};
-
-bootstrap();
->>>>>>> 1bd6223ab2a986d4c417fba32ab8443a88cfed97
