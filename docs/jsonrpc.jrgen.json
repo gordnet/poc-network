@@ -1,0 +1,53 @@
+{
+    "$schema": "https://rawgit.com/mzernetsch/jrgen/master/jrgen-spec.schema.json",
+    "jrgen": "1.1",
+    "jsonrpc": "2.0",
+    "info": {
+        "title": "Gordnet JSON-RPC API",
+        "description": [
+            "Gordnet API call list",
+            "This API follows the json-rpc 2.0 specification. More information available at http://www.jsonrpc.org/specification."
+        ],
+        "version": "1.0"
+    },
+    "definitions": {
+        "peers": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/peer"
+            }
+        },
+        "peer": {
+            "type": "object",
+            "properties": {
+                "ip": {
+                    "type": "string",
+                    "description": "IP address of the peer"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "Port of the peer"
+                },
+                "connectedAt": {
+                    "type": "timestamp",
+                    "description": "Timestamp when the peer was connected"
+                }
+            }
+        }
+    },
+    "methods": {
+        "peers.get": {
+            "summary": "Gets the peers that the node is connected to",
+            "description": "Authenticates the user using the provided credentials and creates a new session.",
+            "tags": [
+                "Peers"
+            ],
+            "result": {
+                "$ref": "#/definitions/peers"
+            }
+        },
+        "peers.add": {
+            "summary": "Adds a new peer to the node"
+        }
+    }
+}

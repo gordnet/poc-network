@@ -1,5 +1,6 @@
 export interface Peer {
-  aliveAt?: Date;
+  connectedAt?: Date;
   throughput?: number;
-  addr: string;
+  ip: string;
+  port: number;
 }

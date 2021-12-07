@@ -40,7 +40,7 @@ const requestHandler = (
 
     const [protocol, urlPath] = requestData.destination.split("://");
 
-    let requestOptions: any = {
+    const requestOptions: any = {
       hostname: urlPath.split("/")[0],
       port: protocol === "https" ? 443 : 80,
       path: urlPath.split("/").slice(1).join("/"),
