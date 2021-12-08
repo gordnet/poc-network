@@ -1,21 +1,27 @@
 /// <reference path="types/global.d.ts" />
 
-import http from 'http'
-import https from 'https'
-import { program } from 'commander'
-import startJsonRpcService from './servers/jsonRpcServer'
-import startNetworkServer from './servers/networkServer'
+import http from "http";
+import https from "https";
+import { program } from "commander";
+import startJsonRpcService from "./servers/jsonRpcServer";
+import startNetworkServer from "./servers/networkServer";
+import Db from "./config/db";
 
 program
-  .description('A node in the network')
-  .option('-p, --port <port>', 'Port to listen to', '10309')
-  .option('-r, --rpcport <port>', 'Port to listen to for JSON RPC. If none is specified, then the RPC server will not run')
+  .description("A node in the network")
+  .option("-p, --port <port>", "Port to listen to", "10309")
+  .option(
+    "-r, --rpcport <port>",
+    "Port to listen to for JSON RPC. If none is specified, then the RPC server will not run"
+  );
 
 program.parse();
 
-const options = program.opts()
-const PORT = Number(options.port)
-const RPCPORT = Number(options.rpcport)
+const options = program.opts();
+const PORT = Number(options.port);
+const RPCPORT = Number(options.rpcport);
+
+Db.init(PORT);
 
 const requestHandler = (
   request: http.IncomingMessage,
@@ -96,19 +102,15 @@ const requestHandler = (
   });
 };
 
-
 const startService = async () => {
-  const server = http.createServer(requestHandler)
+  const server = http.createServer(requestHandler);
 
-
-  console.log('Listening on port ' + global.PORT)
-  return server.listen(global.PORT)
-}
-
-
+  console.log("Listening on port " + global.PORT);
+  return server.listen(global.PORT);
+};
 
 // startService()
-startNetworkServer(PORT)
+startNetworkServer(PORT);
 if (RPCPORT) {
-  startJsonRpcService(RPCPORT)
+  startJsonRpcService(RPCPORT);
 }

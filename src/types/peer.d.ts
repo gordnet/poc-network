@@ -1,6 +1,6 @@
-export interface Peer {
+export type Peer = {
   connectedAt?: Date;
-  throughput?: number;
+  throughputMbps?: number;
   host: string;
   port: number;
-}
+};

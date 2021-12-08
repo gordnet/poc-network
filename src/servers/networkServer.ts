@@ -1,4 +1,5 @@
 import net from "net";
+import { addPeer } from "../db/peers";
 import { peerConnect } from "../peers/connect";
 import { ping } from "../rpcCommands/ping";
 import { RpcRequest } from "../types/rpc";
@@ -30,11 +31,19 @@ const onConnection = async (socket: net.Socket) => {
             result: ping(),
           });
           break;
-        case "peers.connect":
+        case "peers.connect": {
           const { host, port } = params;
-          const connectionResponse = await peerConnect(host, port);
+          const connectionResponse: any = await peerConnect(host, port);
+          const dbResponse = await addPeer({
+            host,
+            port,
+            connectedAt: new Date(),
+            throughputMbps: connectionResponse.throughputMbps,
+          });
           console.log({ connectionResponse });
           break;
+        }
+
         case "peers.check":
           response = "ok";
           break;
