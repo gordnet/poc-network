@@ -2,9 +2,9 @@
 
 import http from 'http'
 import https from 'https'
-import jayson from 'jayson/promise'
 import { program } from 'commander'
-import { addPeerCommand, getPeersCommand, removePeerCommand } from './rpcCommands/peers'
+import startJsonRpcService from './servers/jsonRpcServer'
+import startNetworkServer from './servers/networkServer'
 
 program
   .description('A node in the network')
@@ -14,8 +14,8 @@ program
 program.parse();
 
 const options = program.opts()
-global.PORT = Number(options.port)
-const RPCPORT = options.rpcport as number
+const PORT = Number(options.port)
+const RPCPORT = Number(options.rpcport)
 
 const requestHandler = (
   request: http.IncomingMessage,
@@ -105,19 +105,10 @@ const startService = async () => {
   return server.listen(global.PORT)
 }
 
-const startJsonRpcService = async () => {
-  const server = new jayson.Server({
-    getPeers: getPeersCommand,
-    addPeer: addPeerCommand,
-    removePeer: removePeerCommand,
 
-  });
 
-  console.log('JSON RPC Server listening on port ' + RPCPORT)
-  return server.http().listen(RPCPORT)
-}
-
-startService()
+// startService()
+startNetworkServer(PORT)
 if (RPCPORT) {
-  startJsonRpcService()
+  startJsonRpcService(RPCPORT)
 }

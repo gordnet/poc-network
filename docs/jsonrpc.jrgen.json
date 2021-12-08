@@ -47,7 +47,18 @@
             }
         },
         "peers.add": {
-            "summary": "Adds a new peer to the node"
+            "summary": "Adds a new peer to the node",
+            "description": "Checks the connection with a peer and adds it to the node if it is valid.",
+            "tags": [
+                "Peers"
+            ],
+            "result": {
+                "$ref": "#/definitions/peer"
+            },
+            "params": {
+                "type": "object",
+                "description": "The peer to add"
+            }
         }
     }
 }
