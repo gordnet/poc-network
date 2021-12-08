@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm run lint
-pnpm run pretty
-pnpm run docs
+yarn run lint
+yarn run pretty
+# yarn run docs

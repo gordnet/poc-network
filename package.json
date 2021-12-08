@@ -21,12 +21,12 @@
     },
     "homepage": "https://github.com/gordnet/poc-network#readme",
     "engines": {
-        "node": "16.11.1"
+        "node": "14.17.6"
     },
     "devDependencies": {
         "@types/leveldown": "4.0.3",
         "@types/levelup": "4.3.3",
-        "@types/node": "16.11.1",
+        "@types/node": "14.17.6",
         "@typescript-eslint/eslint-plugin": "5.5.0",
         "@typescript-eslint/parser": "5.5.0",
         "eslint": "8.3.0",
