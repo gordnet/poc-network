@@ -1,6 +1,7 @@
 import net from "net";
 import { peerConnect } from "../peers/connect";
 import { ping } from "../rpcCommands/ping";
+import { RpcRequest } from "../types/rpc";
 
 const onConnection = async (socket: net.Socket) => {
   const remoteAddress = socket.remoteAddress + ":" + socket.remotePort;
@@ -9,10 +10,19 @@ const onConnection = async (socket: net.Socket) => {
   socket.on("data", async (data: Buffer) => {
     console.log("received data from %s:", remoteAddress);
 
+    let parsedData: RpcRequest | null = null;
     try {
-      const { method, params, id } = JSON.parse(data.toString());
+      parsedData = JSON.parse(data.toString());
+    } catch (e) {
+      console.log(e);
+      await socket.write("Invalid JSON");
+      return socket.end();
+    }
 
-      let response = "";
+    const { method, params, id } = parsedData as RpcRequest;
+    let response = "";
+
+    try {
       switch (method) {
         case "ping":
           response = JSON.stringify({
@@ -29,12 +39,11 @@ const onConnection = async (socket: net.Socket) => {
           response = "ok";
           break;
       }
-
-      await socket.write(response);
-    } catch (e) {
-      console.log(e);
-      await socket.write("Invalid JSON");
+    } catch (err: any) {
+      response = err.message;
     }
+
+    await socket.write(response);
 
     return socket.end();
   });

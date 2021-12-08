@@ -1,4 +1,3 @@
-import { timingSafeEqual } from "crypto";
 import net from "net";
 
 const peerConnect = async (host: string, port: number) => {
@@ -25,10 +24,6 @@ const peerConnect = async (host: string, port: number) => {
         })
       );
       socket.end();
-    });
-
-    socket.once("ready", () => {
-      console.log("ready");
     });
 
     socket.on("data", (data) => {
