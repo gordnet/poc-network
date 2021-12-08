@@ -33,7 +33,8 @@ const addPeerCommand = async (args: string[]) => {
   );
   const nodeToAdd = args[0];
   const newNode: Peer = {
-    addr: nodeToAdd,
+    ip: nodeToAdd.split(":")[0],
+    port: parseInt(nodeToAdd.split(":")[1]),
   };
 
   await peerDb.put(nodeToAdd, JSON.stringify(newNode));

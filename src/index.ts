@@ -2,6 +2,7 @@
 
 import http from 'http'
 import https from 'https'
+const socks5 = require('@sansamour/node-socks').socks5
 import jayson from 'jayson/promise'
 import { program } from 'commander'
 import { addPeerCommand, getPeersCommand, removePeerCommand } from './rpcCommands/peers'
@@ -9,13 +10,15 @@ import { addPeerCommand, getPeersCommand, removePeerCommand } from './rpcCommand
 program
   .description('A node in the network')
   .option('-p, --port <port>', 'Port to listen to', '10309')
+  .option('-s, --socksport <port>', 'SOCKS Port to listen to', '10310')
   .option('-r, --rpcport <port>', 'Port to listen to for JSON RPC. If none is specified, then the RPC server will not run')
 
 program.parse();
 
 const options = program.opts()
 global.PORT = Number(options.port)
-const RPCPORT = options.rpcport as number
+const RPCPORT = Number(options.rpcport)
+const SOCKSPORT = Number(options.socksport)
 
 const requestHandler = (
   request: http.IncomingMessage,
@@ -105,6 +108,19 @@ const startService = async () => {
   return server.listen(global.PORT)
 }
 
+const startSocksProxy = async () => {
+  await socks5.createServer({
+    port: SOCKSPORT,
+    onAccept: async (socket: any, info: any, accept: any, deny: any) => {
+      console.log(socket.request.toString() )
+      // console.log({ info })
+      return accept()
+    }
+  })
+
+  console.log('SOCKS5 Server listening on port ' + SOCKSPORT)
+}
+
 const startJsonRpcService = async () => {
   const server = new jayson.Server({
     getPeers: getPeersCommand,
@@ -117,7 +133,9 @@ const startJsonRpcService = async () => {
   return server.http().listen(RPCPORT)
 }
 
-startService()
+// startService()
+
+startSocksProxy()
 if (RPCPORT) {
   startJsonRpcService()
 }
