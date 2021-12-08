@@ -23,9 +23,10 @@ const onConnection = async (socket: net.Socket) => {
         case "peers.connect":
           const { host, port } = params;
           const connectionResponse = await peerConnect(host, port);
+          console.log({ connectionResponse });
           break;
         case "peers.check":
-          console.log("peers");
+          response = "ok";
           break;
       }
 
