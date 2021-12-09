@@ -1,15 +1,21 @@
-import http from "http";
-import https from "https";
-import { program } from "commander";
+/// <reference path="types/global.d.ts" />
+
+import http from 'http'
+import https from 'https'
+import jayson from 'jayson/promise'
+import { program } from 'commander'
+import { addPeerCommand, getPeersCommand, removePeerCommand } from './rpcCommands/peers'
 
 program
-  .description("A node in the network")
-  .option("-p, --port <port>", "Port to listen to");
+  .description('A node in the network')
+  .option('-p, --port <port>', 'Port to listen to', '10309')
+  .option('-r, --rpcport <port>', 'Port to listen to for JSON RPC. If none is specified, then the RPC server will not run')
 
 program.parse();
 
-const options = program.opts();
-const PORT = (options.port as number) || 10309;
+const options = program.opts()
+global.PORT = Number(options.port)
+const RPCPORT = options.rpcport as number
 
 const requestHandler = (
   request: http.IncomingMessage,
@@ -34,7 +40,7 @@ const requestHandler = (
 
     const [protocol, urlPath] = requestData.destination.split("://");
 
-    let requestOptions: any = {
+    const requestOptions: any = {
       hostname: urlPath.split("/")[0],
       port: protocol === "https" ? 443 : 80,
       path: urlPath.split("/").slice(1).join("/"),
@@ -90,33 +96,28 @@ const requestHandler = (
   });
 };
 
-const bootstrap = async () => {
-  const server = http.createServer(requestHandler);
-  // const peers = await getPeers(peerDb)
 
-  // console.log(peers.toString())
+const startService = async () => {
+  const server = http.createServer(requestHandler)
 
-  // const reqOptions = {
-  //   hostname: peers[1].split(':')[0],
-  //   port: peers[1].split(':')[1],
-  // }
-  // console.log({ reqOptions })
-  // const req = http.request(reqOptions, async (res) => {
-  //   console.log(`statusCode: ${res.statusCode}`)
 
-  //   res.on('data', d => {
-  //     console.log('data', d.toString())
-  //   })
-  // })
+  console.log('Listening on port ' + global.PORT)
+  return server.listen(global.PORT)
+}
 
-  // req.on('error', error => {
-  //   console.error(error)
-  // })
+const startJsonRpcService = async () => {
+  const server = new jayson.Server({
+    getPeers: getPeersCommand,
+    addPeer: addPeerCommand,
+    removePeer: removePeerCommand,
 
-  // req.end()
+  });
 
-  console.log("Listening on port " + PORT);
-  return server.listen(PORT);
-};
+  console.log('JSON RPC Server listening on port ' + RPCPORT)
+  return server.http().listen(RPCPORT)
+}
 
-bootstrap();
+startService()
+if (RPCPORT) {
+  startJsonRpcService()
+}
