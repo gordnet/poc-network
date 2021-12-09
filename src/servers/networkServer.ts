@@ -13,6 +13,7 @@ const onConnection = async (socket: net.Socket) => {
 
     let parsedData: RpcRequest | null = null;
     try {
+      console.log(data.toJSON());
       parsedData = JSON.parse(data.toString());
     } catch (e) {
       console.log(e);
@@ -34,7 +35,7 @@ const onConnection = async (socket: net.Socket) => {
         case "peers.connect": {
           const { host, port } = params;
           const connectionResponse: any = await peerConnect(host, port);
-          const dbResponse = await addPeer({
+          await addPeer({
             host,
             port,
             connectedAt: new Date(),
