@@ -24,6 +24,7 @@
         "node": "16.13.1"
     },
     "devDependencies": {
+        "@types/bson": "^4.2.0",
         "@types/leveldown": "4.0.3",
         "@types/levelup": "4.3.3",
         "@types/node": "16.11.12",

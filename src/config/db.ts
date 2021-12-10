@@ -1,5 +1,5 @@
 import levelup, { LevelUp } from "levelup";
-import leveldown, { LevelDown } from "leveldown";
+import leveldown from "leveldown";
 
 class Db {
   PORT: number;
@@ -9,6 +9,7 @@ class Db {
     this.PORT = 10309;
   }
   init(port: number) {
+    console.log("init db", port);
     this.PORT = port;
     this.peerDb = levelup(
       leveldown(`${process.cwd()}/data/peers.${this.PORT}`)

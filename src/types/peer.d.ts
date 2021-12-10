@@ -1,5 +1,6 @@
 export type Peer = {
-  connectedAt?: Date;
+  connectedAt?: number; // EPOCH TIME
+  heartbeatAt?: number; // EPOCH TIME
   throughputMbps?: number;
   host: string;
   port: number;

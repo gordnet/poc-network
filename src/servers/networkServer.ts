@@ -1,5 +1,5 @@
 import net from "net";
-import { addPeer } from "../db/peers";
+import { addPeer, getPeers } from "../db/peers";
 import { peerConnect } from "../peers/connect";
 import { ping } from "../rpcCommands/ping";
 import { RpcRequest } from "../types/rpc";
@@ -13,7 +13,6 @@ const onConnection = async (socket: net.Socket) => {
 
     let parsedData: RpcRequest | null = null;
     try {
-      console.log(data.toJSON());
       parsedData = JSON.parse(data.toString());
     } catch (e) {
       console.log(e);
@@ -32,13 +31,22 @@ const onConnection = async (socket: net.Socket) => {
             result: ping(),
           });
           break;
+        case "peers.get": {
+          const dbResponse = await getPeers();
+          response = JSON.stringify({
+            id,
+            result: dbResponse,
+          });
+          break;
+        }
         case "peers.connect": {
           const { host, port } = params;
           const connectionResponse: any = await peerConnect(host, port);
           await addPeer({
             host,
             port,
-            connectedAt: new Date(),
+            connectedAt: Date.now(),
+            heartbeatAt: Date.now(),
             throughputMbps: connectionResponse.throughputMbps,
           });
           console.log({ connectionResponse });
