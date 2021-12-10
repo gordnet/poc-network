@@ -24,6 +24,7 @@ Authenticates the user using the provided credentials and creates a new session.
 
 ### Result
 
+<<<<<<< HEAD
 | Name                  | Type      | Constraints | Description                           |
 | --------------------- | --------- | ----------- | ------------------------------------- |
 | result                | array     |             |                                       |
@@ -31,6 +32,15 @@ Authenticates the user using the provided credentials and creates a new session.
 | result[]?.ip          | string    |             | IP address of the peer                |
 | result[]?.port        | integer   |             | Port of the peer                      |
 | result[]?.connectedAt | timestamp |             | Timestamp when the peer was connected |
+=======
+| Name                  | Type      | Constraints | Description                               |
+| --------------------- | --------- | ----------- | ----------------------------------------- |
+| result                | array     |             |                                           |
+| result[]              | object    |             |                                           |
+| result[]?.ip          | string    |             | IP address of the peer                    |
+| result[]?.port        | integer   |             | Port of the peer                          |
+| result[]?.connectedAt | timestamp |             | Date and time when the peer was connected |
+>>>>>>> 0684895c97fa485c3318821f3cdfad19bc3716f6
 
 ### Examples
 
@@ -60,6 +70,7 @@ Authenticates the user using the provided credentials and creates a new session.
 
 Adds a new peer to the node
 
+<<<<<<< HEAD
 ### Description
 
 Checks the connection with a peer and adds it to the node if it is valid.
@@ -73,6 +84,8 @@ Checks the connection with a peer and adds it to the node if it is valid.
 | result?.port        | integer   |             | Port of the peer                      |
 | result?.connectedAt | timestamp |             | Timestamp when the peer was connected |
 
+=======
+>>>>>>> 0684895c97fa485c3318821f3cdfad19bc3716f6
 ### Examples
 
 #### Request
@@ -90,7 +103,11 @@ Checks the connection with a peer and adds it to the node if it is valid.
 ```json
 {
   "jsonrpc": "2.0",
+<<<<<<< HEAD
   "id": "1234567890",
   "result": {}
+=======
+  "id": "1234567890"
+>>>>>>> 0684895c97fa485c3318821f3cdfad19bc3716f6
 }
 ```
