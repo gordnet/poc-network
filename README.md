@@ -4,6 +4,20 @@ GordNet is a decentralized trustless minimal-knowledge network that acts as a re
 # Impact of GordNet
 GordNet aims to be a better alternate to Tor like projects. First, Gordnet aims to be a completely decentralized network which makes the obfuscating the path between a user and the end destination more effciient and secure. It also is a faster network because the market determines the price of privacy. Hence, the more reward a relay recieves, the faster the network will be. The link to the complete whitepaper can be obtained here: https://github.com/gordnet/docs/blob/main/WHITEPAPER.md
 
+# Guidelines
+GordNet is constantly working on improving its code base to provide the best decentralized network for online privacy. As a result, code changes and bug fixes are being constantly delivered. Developers should follow the best practices for contributing to this project:
+
+In general, we follow the "fork-and-pull" Git workflow.
+
+Fork the repo on GitHub
+Clone the project to your own machine
+Commit changes to your own branch
+Push your work back up to your fork
+Submit a Pull request so that we can review your changes
+NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+Code can only be merged if 2 reviewers have approved the committed code. Else it will not be merged
+Finally, each code has to be tested thoroughly and testing notes must be documented to ensure best solutions are being merged
+
 
 
 # JSON-RPC
