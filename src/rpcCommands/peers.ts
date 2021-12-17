@@ -28,19 +28,19 @@ const getPeersCommand = async () => {
 };
 
 const addPeerCommand = async (args: string[]) => {
-  const peerDb = levelup(
-    leveldown(`${process.cwd()}/data/peers.${global.PORT}`)
-  );
-  const nodeToAdd = args[0];
-  const newNode: Peer = {
-    host: nodeToAdd.split(":")[0],
-    port: parseInt(nodeToAdd.split(":")[1]),
-  };
+  // const peerDb = levelup(
+  //   leveldown(`${process.cwd()}/data/peers.${global.PORT}`)
+  // );
+  // const nodeToAdd = args[0];
+  // const newNode: Peer = {
+  //   host: nodeToAdd.split(":")[0],
+  //   port: parseInt(nodeToAdd.split(":")[1]),
+  // };
 
-  await peerDb.put(nodeToAdd, JSON.stringify(newNode));
-  console.log({ args });
+  // await peerDb.put(nodeToAdd, JSON.stringify(newNode));
+  // console.log({ args });
 
-  peerDb.close();
+  // peerDb.close();
   return;
 };
 

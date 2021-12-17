@@ -5,6 +5,7 @@ import https from "https";
 import { program } from "commander";
 import startJsonRpcService from "./servers/jsonRpcServer";
 import startNetworkServer from "./servers/networkServer";
+import { heartbeatTimer } from "./timers/heartbeat";
 import Db from "./config/db";
 
 program
@@ -114,3 +115,6 @@ startNetworkServer(PORT);
 if (RPCPORT) {
   startJsonRpcService(RPCPORT);
 }
+
+// Kick off timers
+heartbeatTimer();

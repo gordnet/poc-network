@@ -10,7 +10,7 @@ const addPeer = async (peer: Peer) => {
   return;
 };
 
-const getPeers = async () => {
+const getPeers: () => Promise<Peer[]> = async () => {
   const peers: Peer[] = [];
   return new Promise((resolve, reject) => {
     Db?.peerDb
