@@ -1,21 +1,28 @@
 /// <reference path="types/global.d.ts" />
 
-import http from 'http'
-import https from 'https'
-import jayson from 'jayson/promise'
-import { program } from 'commander'
-import { addPeerCommand, getPeersCommand, removePeerCommand } from './rpcCommands/peers'
+import http from "http";
+import https from "https";
+import { program } from "commander";
+import startJsonRpcService from "./servers/jsonRpcServer";
+import startNetworkServer from "./servers/networkServer";
+import { heartbeatTimer } from "./timers/heartbeat";
+import Db from "./config/db";
 
 program
-  .description('A node in the network')
-  .option('-p, --port <port>', 'Port to listen to', '10309')
-  .option('-r, --rpcport <port>', 'Port to listen to for JSON RPC. If none is specified, then the RPC server will not run')
+  .description("A node in the network")
+  .option("-p, --port <port>", "Port to listen to", "10309")
+  .option(
+    "-r, --rpcport <port>",
+    "Port to listen to for JSON RPC. If none is specified, then the RPC server will not run"
+  );
 
 program.parse();
 
-const options = program.opts()
-global.PORT = Number(options.port)
-const RPCPORT = options.rpcport as number
+const options = program.opts();
+const PORT = Number(options.port);
+const RPCPORT = Number(options.rpcport);
+
+Db.init(PORT);
 
 const requestHandler = (
   request: http.IncomingMessage,
@@ -96,28 +103,18 @@ const requestHandler = (
   });
 };
 
-
 const startService = async () => {
-  const server = http.createServer(requestHandler)
+  const server = http.createServer(requestHandler);
 
+  console.log("Listening on port " + global.PORT);
+  return server.listen(global.PORT);
+};
 
-  console.log('Listening on port ' + global.PORT)
-  return server.listen(global.PORT)
-}
-
-const startJsonRpcService = async () => {
-  const server = new jayson.Server({
-    getPeers: getPeersCommand,
-    addPeer: addPeerCommand,
-    removePeer: removePeerCommand,
-
-  });
-
-  console.log('JSON RPC Server listening on port ' + RPCPORT)
-  return server.http().listen(RPCPORT)
-}
-
-startService()
+// startService()
+startNetworkServer(PORT);
 if (RPCPORT) {
-  startJsonRpcService()
+  startJsonRpcService(RPCPORT);
 }
+
+// Kick off timers
+heartbeatTimer();
